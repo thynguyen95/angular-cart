@@ -1,0 +1,86 @@
+<div class="container">
+    <h3 class="text-center text-danger display-4 my-4">Shopping Online</h3>
+    <div class="row my-3">
+        <div class="col-md-4" *ngFor='let product_ of listProducts'>
+            <app-products (getToCart)="getProductPurchased($event)" [product]="product_"></app-products>
+        </div>
+    </div>
+
+    <div *ngIf="isStatus === true">
+        <h3 class="text-success display-4 my-5">Cart</h3>
+
+        <table class="table my-table">
+            <thead class="bg-dark text-white">
+                <tr>
+                    <th>Image</th>
+                    <th>Products</th>
+                    <th>Price</th>
+                    <th>Number</th>
+                    <th>Total</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr #tangbt *ngFor="let productsPurchased of listProductsPurchased">
+                    <td class="imgcart">
+                        <img src="{{productsPurchased.image}}" alt="">
+                    </td>
+                    <td>{{productsPurchased.name}}</td>
+                    <td>{{productsPurchased.price}}$</td>
+                    <td>
+                        <button (click)="subProduct(productsPurchased)" type="button" class="btn btn-danger">-</button>
+                        {{productsPurchased.number}}
+                        <button (click)="plusProduct(productsPurchased)" type="button" class="btn btn-success">+</button>
+                    </td>
+                    <td>{{getTotal(productsPurchased)}}$</td>
+                    <td>
+                        <button (click)="delete()" type="button" class="btn btn-danger">X</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="row justify-content-end border-top my-2">
+            <div class="col-md-6 py-2">
+                <div class="row align-items-center">
+                    <div class="col-md-4 text-danger">ToTal</div>
+                    <div class="col-md-4 text-right">{{getSumToTal()}}$</div>
+                    <div class="col-md-4">
+                        <button class="btn btn-success" data-toggle="modal" data-target="#myModal">Pay</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Bill</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <p>Are you sure you want to pay?</p>
+                <div class="row">
+                    <div class="col-md-3">Total Bill:</div>
+                    <div class="col-md-9">{{getSumToTal()}}$</div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-success" (click)="pay()">OK</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

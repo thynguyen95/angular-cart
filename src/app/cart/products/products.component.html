@@ -1,0 +1,8 @@
+<div class="card">
+    <img class="card-img-top p-3" src="{{product.Image}}" alt="Card image cap">
+    <div class="card-body border-top">
+        <h5 class="card-title">{{product.Name}}</h5>
+        <p class="card-text">{{product.Price}}$</p>
+        <a (click)="buyProduct(product)" class="btn btn-success w-100">Buy Now</a>
+    </div>
+</div>
